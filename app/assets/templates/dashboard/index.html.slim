@@ -1,0 +1,78 @@
+.st-pusher style="overflow-y:scroll"
+  .header data-ng-include="'layouts/loggedin_header.html'"
+  .content.dashboard
+    .graph-container
+      .graph
+        select ng-model="selectedItem" ng-options="item as item.name for item in graphDuration" ng-change="changeGraph(selectedItem)" class="pull-right"
+          | {{selectedItem | json}}
+        canvas class="chart chart-line" chart-series="series" chart-options="options" chart-data="data" chart-labels="labels" chart-colors="colours"
+
+    .container-fluid
+      .row
+        .col-md-12
+          .balance
+            h4
+              | ACCOUNT BALANCE &nbsp;
+              strong
+                | &pound;&nbsp;{{balance | number:2}}
+      .row.credit
+        .col-md-4.col-sm-4
+          .card
+            .title
+              h4.text-center Income
+            .card-content
+              h3 &pound; {{stats.credit.total| number:2}}
+        .col-md-4.col-sm-4
+          .card
+            .title
+              h4.text-center Deposits
+            .card-content
+              h3
+                | {{stats.credit.count}}
+        .col-md-4.col-sm-4
+          .card
+            .title
+              h4.text-center Avg. Deposits
+            .card-content
+              h3 &pound; {{stats.credit.average| number:2}}
+      .row.debit
+        .col-md-4.col-sm-4
+          .card
+            .title
+              h4.text-center Expenditure
+            .card-content
+              h3 &pound; {{stats.debit.total| number:2}}
+        .col-md-4.col-sm-4
+          .card
+            .title
+              h4.text-center Transactions
+            .card-content
+              h3
+                | {{stats.debit.count}}
+        .col-md-4.col-sm-4
+          .card
+            .title
+              h4.text-center Avg. Spend
+            .card-content
+              h3 &pound; {{stats.debit.average| number:2}}
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          h3.text-center YOUR TRANSACTIONS
+          .table-container
+            table ng-table="tableParams" class="table" show-filter="true"
+              tr ng-repeat="user in $data"
+                td title="''"
+                  <div bank-details account-id="user.account_id" bank-obj="bank"></div>
+                td title="'Date'"  sortable="'post_date'"
+                  | {{user.post_date | date : 'mediumDate' }}
+                td title="'Description'"  sortable="'description'" ng-bind-html="user.description"
+                td title="'Category'"  sortable="'category_name'"
+                  | {{user.category_name}}
+                td title="'Value in (£)'"  sortable="'amount'"
+                  div ng-if="user.amount > 0"
+                    div class="positive"
+                      | {{user.amount | number:2}}
+                  div ng-if="user.amount < 0"
+                    div class="negative"
+                      | {{user.amount | number:2}}
+  div data-ng-include="'layouts/footer.html'"

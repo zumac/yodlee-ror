@@ -1,0 +1,68 @@
+.st-pusher style="overflow-y:scroll"
+  .header data-ng-include="'layouts/loggedin_header.html'"
+  .content.accounts
+    h3.text-center
+      a.blue Personal |&nbsp;
+      a href="/accounts/linked" Accounts
+    h3.sub-text.text-center Edit your details
+    form data-ng-submit="update(form)"
+      .form-group
+        .row
+          .col-md-4.col-sm-4
+            label First Name:
+          .col-md-8.col-sm-8
+            input.form-control name="first_name" ng-model="user.first_name" type="text" required="true"  autocomplete="off"
+      .form-group
+        .row
+          .col-md-4.col-sm-4
+            label Last Name:
+          .col-md-8.col-sm-8
+            input.form-control name="last_name" ng-model="user.last_name" type="text" required="true" autocomplete="off"
+      .form-group
+        .row
+          .col-md-4.col-sm-4
+            label Mobile Number:
+          .col-md-8.col-sm-8
+            input.form-control name="phone" ng-model="user.phone" type="text" required="true"  autocomplete="off"
+      .form-group
+        .row
+          .col-md-4.col-sm-4.col-xs-12
+            label Gender:
+          .col-md-4.col-sm-4.col-xs-6
+            input name="gender" ng-model="user.gender" type="radio" value="male" /
+            label Male
+          .col-md-4.col-sm-4.col-xs-6
+            input name="gender" ng-model="user.gender" type="radio" value="female" /
+            label Female
+      .form-group
+        .row
+          .col-md-4.col-sm-4
+            label Postal Code:
+          .col-md-8.col-sm-8
+            input.form-control name="postal_code" ng-model="user.postal_code" type="text" required="true" autocomplete="off"
+      .form-group
+        .row
+          .col-md-4.col-sm-4
+            label Date Of Birth:
+          .col-md-8.col-sm-8
+            <input rsmdatedropdowns name="dob" ng-model="user.dob" autocomplete="off">
+      .form-group
+        input.btn.btn-default.btn-240 type="submit" value="UPDATE"
+      .form-group
+        a.btn.btn-black.btn-150 href="/dashboard" CANCEL
+      .form-group
+        .row
+          .col-md-4.col-sm-4
+            label Email:
+          .col-md-6.col-sm-6
+            input.form-control name="email" ng-model="user.email" type="text" required="true" readonly="true" autocomplete="off"
+        .row
+          .col-md-4.col-sm-4
+            label Password:
+          .col-md-6.col-sm-6
+            input.form-control name="password" type="password" value="**********" readonly="true"/
+          .col-md-2.col-sm-2.hidden-xs
+            a.btn.btn-default.btn-150 href="/accounts/user/update-password" style="margin:0px auto;padding:6px;" CHANGE
+        .row.visible-xs
+          a.btn.btn-default.btn-150 href="/accounts/user/update-password" style="margin:40px auto;padding:6px;" CHANGE
+  div data-ng-include="'layouts/footer.html'"

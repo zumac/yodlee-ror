@@ -1,0 +1,33 @@
+.st-pusher style="overflow-y:scroll"
+  .header data-ng-include="'layouts/loggedin_header.html'"
+  .content.accounts
+    h3.text-center
+      a href="/accounts/user/settings" Personal
+      a.blue &nbsp;| Accounts
+    h3.sub-text.text-center Edit your accounts
+    a.text-center href="#" ng-click="refreshAll()"
+      = image_tag 'Refresh.png', :style =>"display:inline"
+      | Refresh All
+    table.table
+      thead
+        tr
+          th Account
+          th
+          th.text-center Options
+          th.text-center Status
+      tr ng-repeat="bank in banks"
+        <td bank-image bank-obj="bank"></td>
+        td
+          | {{ bank.name }}
+        td
+          a href="#" ng-click="refresh(bank)" Refresh
+          span &nbsp;|&nbsp;
+          a href="#" ng-click="delete(bank)" Delete
+        td
+          div ng-if="bank.status_code == 0"
+            = image_tag 'Ok.png'
+          div ng-if="bank.status_code != 0"
+            = image_tag 'Delete.png'
+            | {{ bank.message }}
+    a.btn.btn-default.btn-240 href="/accounts/linked/add" ADD ACCOUNT
+  div data-ng-include="'layouts/footer.html'"

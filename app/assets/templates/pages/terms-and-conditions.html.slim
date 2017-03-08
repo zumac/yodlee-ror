@@ -1,0 +1,12 @@
+div ng-if="user == false"
+  .header data-ng-include="'layouts/header.html'"
+  .container-fluid.content
+    .pages
+      div data-ng-include="'pages/terms_content.html'"
+div ng-if="user == true"
+  .header data-ng-include="'layouts/loggedin_header.html'"
+  .container-fluid.content
+    .pages
+      .p40
+        div data-ng-include="'pages/terms_content.html'"
+div data-ng-include="'layouts/footer.html'"

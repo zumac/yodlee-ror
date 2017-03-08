@@ -1,0 +1,23 @@
+development:
+  base_url: https://rest.developer.yodlee.com/services/srest/restserver/v1.0
+  username: sbCobsaverd_dev
+  password: 681539e3-7968-44c6-a264-e9d5ae86ecb2
+  register_users: false
+
+test:
+  base_url: https://rest.developer.yodlee.com/services/srest/restserver/v1.0
+  username: sbCobsaverd_dev
+  password: 681539e3-7968-44c6-a264-e9d5ae86ecb2
+  register_users: false
+
+staging:
+  base_url: https://rest.developer.yodlee.com/services/srest/restserver/v1.0
+  username: sbCobsaverd_dev
+  password: 681539e3-7968-44c6-a264-e9d5ae86ecb2
+  register_users: false
+
+production:
+  base_url:
+  username:
+  password:
+  register_users: true

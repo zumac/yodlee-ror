@@ -1,0 +1,13 @@
+table.dataTable thead .sorting:after {
+  opacity: 0.2;
+  content: "\f0dc";
+  font-family: FontAwesome;
+}
+table.dataTable thead .sorting_asc:after {
+  content: "\f161";
+  font-family: FontAwesome;
+}
+table.dataTable thead .sorting_desc:after {
+  content: "\f160";
+  font-family: FontAwesome;
+}

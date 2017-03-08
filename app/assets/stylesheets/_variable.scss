@@ -1,0 +1,59 @@
+$green-color:                      #5ce7b9 !default;
+$green-dark-color:                 #009994 !default;
+$green-darker-color:               #008073 !default;
+$white-color:                      #FFFFFF !default;
+$grey-color:                       #f0f0f0 !default;
+$grey-dark-color:                  #666666 !default;
+$black-color:                      #1a1a1a !default;
+$red-color:                        #d22f51 !default;
+$violet-color:                     #5499db !default;
+$blue-color:                       #2c384d !default;
+$blue-dark-color:                  #262e40 !default;
+$blue-light-color:                 #6c788f !default;
+
+$brand-success:                    $green-color !default;
+$btn-success-border:               darken($green-color, 25%) !default;
+
+$btn-default-color:                $green-dark-color !default;
+$btn-default-bg:                   #fff !default;
+$btn-default-border:               $green-dark-color !default;
+
+$btn-primary-color:                $violet-color !default;
+$btn-primary-bg:                   transparent !default;
+$btn-primary-border:               $violet-color !default;
+
+$text-color:                       $black-color !default;
+
+$font-size-h1:                     42px !default; // ~36px
+$font-size-h2:                     32px !default;
+$font-size-h3:                     24px !default; // ~24px
+
+$headings-font-weight:              700 !default;
+$navbar-margin-bottom:              0px !default;
+$navbar-border-radius:              0 !default;
+$navbar-height:                     80px !default;
+$navbar-padding-horizontal:         7px !default;
+$navbar-padding-vertical:           7px !default;
+$navbar-default-toggle-hover-bg:    $green-color !default;
+$navbar-default-toggle-icon-bar-bg: $green-dark-color !default;
+
+$navbar-default-color:             #007d71 !default;
+$navbar-default-bg:                $green-color !default;
+$navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
+$navbar-default-link-color:        $white-color !default;
+
+$nav-link-hover-bg:                darken($navbar-default-bg, 6.5%) !default;
+
+//=== Inverted navbar
+// Reset inverted navbar basics
+$navbar-inverse-color:                      $black-color !default;
+$navbar-inverse-bg:                         $white-color !default;
+$navbar-inverse-border:                     darken($white-color, 10%) !default;
+
+$font-family-base:                 'Quicksand', sans-serif !default;
+
+$form-group-margin-bottom:          20px !default;
+
+$table-border-color:                $grey-dark-color !default;
+
+$animation-duration: 0.4s;

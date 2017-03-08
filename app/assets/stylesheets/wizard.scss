@@ -1,0 +1,148 @@
+@import "variable";
+@import "mixin";
+@import "bootstrap/mixins/vendor-prefixes";
+
+.registration{
+  margin: 80px 0px;
+  padding: 40px 0px;
+  h3, h4{
+    font-weight: 400;
+    color: $grey-dark-color;
+  }
+  .bank-login-form{
+    padding: 10%;
+  }
+  .sign-up-container{
+    padding: 50px 0px 40px 0px;
+    @include MQ(XS) {
+      width: 100%;
+      .sign-up-form{
+        padding: 0px 2%;
+      }
+
+    }
+
+    @include MQ(S) {
+      width: 80%;
+      .sign-up-form{
+        padding: 0px 5%;
+      }
+
+    }
+
+    @include MQ(M) {
+      width: 60%;
+      .sign-up-form{
+        padding: 0px 15%;
+      }
+
+    }
+
+    @include MQ(L) {
+      width: 60%;
+      .sign-up-form{
+        padding: 0px 15%;
+      }
+
+    }
+    margin: 0 auto;
+  }
+  .form-container{
+    @include MQ(XS) {
+      width: 80%;
+    }
+
+    @include MQ(S) {
+      width: 60%;
+    }
+
+    @include MQ(M) {
+      width: 32%;
+    }
+
+    @include MQ(L) {
+      width: 32%;
+    }
+
+    margin: 0 auto;
+    display: block;
+    a{
+      text-decoration: none;
+    }
+    .button-submit{
+      margin-top: 40px;
+    }
+  }
+  .btn {
+    margin: 0 auto;
+    display: block;
+  }
+  .btn-primary{
+    width: 240px;
+  }
+  .btn-default{
+    width: 150px;
+  }
+  .saverd-advantage{
+    margin: 30px auto;
+    @include MQ(XS) {
+      width: 90%;
+    }
+
+    @include MQ(S) {
+      width: 80%;
+    }
+
+    @include MQ(M) {
+      width: 60%;
+    }
+
+    @include MQ(L) {
+      width: 60%;
+    }
+    display: block;
+
+    .icon{
+      margin-top: 15px;
+    }
+
+  }
+}
+
+.bank-container{
+  margin: 40px 0px;
+  .logo{
+    height: 60px;
+    display: table;
+    img{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 70px;
+    }
+  }
+  p{
+
+    @include MQ(S) {
+      position: absolute;
+    }
+
+    @include MQ(M) {
+      position: absolute;
+    }
+
+    @include MQ(L) {
+      position: absolute;
+    }
+
+    text-align: center;
+    margin: 10px 0 10px;
+  }
+}
+.bank-container:hover{
+  cursor: pointer;
+  background-color: rgba(212, 212, 212, 0.1);
+  @include box-shadow(2px 2px 5px #F1F1F1);
+}
+

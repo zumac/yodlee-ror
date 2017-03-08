@@ -1,0 +1,61 @@
+.header data-ng-include="'layouts/header.html'"
+.container-fluid.content
+  .registration
+    .sign-up-container
+      wizard on-finish="finishedWizard()"
+        wz-step wz-title="1. Your Info" canexit="accountValidation"
+          .sign-up-form
+            .form-group
+              h3.text-center Sign up for your free saverd account
+            .form-group
+              input.form-control name="first_name" placeholder="First Name" ng-model="user.first_name" type="text" required="true" /
+            .form-group
+              input.form-control name="last_name" placeholder="Last Name" ng-model="user.last_name" type="text" /
+            .form-group
+              input.form-control name="email" placeholder="Email Address" ng-model="user.email" type="text" /
+            .form-group
+              input.form-control name="phone" placeholder="Phone" ng-model="user.phone"  type="text" /
+            .form-group
+              input.form-control name="password" placeholder="Password" ng-model="user.password" type="password" /
+            .form-group
+              input.form-control name="password_confirmation" placeholder="Retype your password" ng-model="user.password_confirmation" type="password" /
+            .form-group.button-submit
+              input type="submit" value="Continue" class="btn btn-primary" wz-next="" /
+        wz-step wz-title="2. Connect Account"
+          .sign-up-form
+            .form-group
+              h3.text-center Search your bank
+            .form-group
+              h4 Please select the bank where you make most of your credit or debit purchases.
+            .form-group
+              input.form-control name="search" placeholder="Search" ng-model="search" type="text" ng-change="bankSearch(search)"
+            .form-group
+              div.col-md-3 ng-repeat="model in banks track by model.id"
+                .bank-container
+                  .logo
+                    <img src=data:image/png;base64,{{model.img}}></img>
+                  .clearfix
+                  p
+                    input type="radio" name="selectedBank" ng-model="bank.id" ng-value="{{model.csi}}"
+                    | {{model.csdn}}
+              .clearfix
+            .clearfix
+            .form-group style="margin-top:30px"
+              input type="submit" class="btn btn-primary" value=("Next") ng-click="getBankLoginDetails(bank.id)"
+        wz-step wz-title="3. Login"
+          form class='bank-login-form'
+            div dynamic="html"
+            .clearfix
+            .form-group style="margin-top:30px"
+              input type="submit" class="btn btn-primary" value=("Submit") ng-click="bankLogin(bank)"
+        div ng-if="is_mfa_enabled == 'true'"
+          wz-step wz-title="3. MFA"
+            form class='bank-login-form' ng-submit="mfaLogin(bank)"
+              div dynamic="html_mfa"
+              .clearfix
+              .form-group style="margin-top:30px"
+                input type="submit" class="btn btn-primary" value=("Submit")
+    hr
+
+    .saverd-advantage data-ng-include="'user/saverd-advantage.html'"
+div data-ng-include="'layouts/footer.html'"

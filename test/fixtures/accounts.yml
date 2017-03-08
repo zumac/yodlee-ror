@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  bank_id: 
+  yodlee_id: 1
+  status_code: 1
+  last_refresh: 2016-02-05 12:54:58
+
+two:
+  user_id: 
+  bank_id: 
+  yodlee_id: 1
+  status_code: 1
+  last_refresh: 2016-02-05 12:54:58

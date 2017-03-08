@@ -1,0 +1,22 @@
+@import "variable";
+@import "bootstrap/mixins/buttons";
+
+
+.btn {
+  border-radius: 50px;
+  border-width: 2px;
+  font-weight: 800;
+  padding: 12px;
+  outline: none !important;
+}
+.btn:focus {
+  outline: none !important;
+}
+
+
+.btn-dark-green {
+  @include button-variant($white-color, $green-dark-color, $green-darker-color);
+}
+.btn-black {
+  @include button-variant($black-color, transparent, $black-color);
+}

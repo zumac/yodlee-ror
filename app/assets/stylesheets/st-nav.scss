@@ -1,0 +1,460 @@
+@import "variable";
+@import "mixin";
+@import "bootstrap/mixins/vendor-prefixes";
+
+ul {
+  list-style: none;
+  padding: 0px;
+}
+
+@mixin center($xy: xy) {
+  @if $xy == xy {
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    @include translate(-50%, -50%);
+  } @else if $xy == x {
+    left: 50%;
+    right: auto;
+    @include translate(-50%, 0%);
+  } @else if $xy == y {
+    top: 50%;
+    bottom: auto;
+    @include translate(0%, -50%);
+  }
+}
+
+// super light grid - it works with the .cd-container class inside style.scss
+
+@mixin column($percentage, $float-direction: left) {
+  width: 100% * $percentage;
+  float: $float-direction;
+}
+
+/* --------------------------------
+
+Main Components
+
+-------------------------------- */
+.cd-nav-trigger.right {
+  right: 5%;
+}
+
+.cd-nav-trigger.left {
+  left: 5%;
+}
+
+.cd-nav-trigger {
+  /* hamburger icon */
+  position: fixed;
+  z-index: 3;
+  top: 18px;
+  height: 40px;
+  width: 40px;
+
+  text-indent: 100%;
+  white-space: nowrap;
+
+  span {
+    /* icon created in CSS */
+    position: absolute;
+    @include center; // mixin inside partials > _mixins.scss
+    width: 25px;
+    height: 4px;
+    background-color: $black-color;
+
+    @include MQ(XS) {
+      width: 25px;
+      height: 3px;
+    }
+
+    @include MQ(S) {
+      width: 25px;
+      height: 3px;
+    }
+
+    @include MQ(M) {
+      width: 35px;
+      height: 4px;
+    }
+    @include MQ(L) {
+      width: 35px;
+      height: 4px;
+    }
+
+
+    &::before, &:after {
+      /* upper and lower lines of the menu icon */
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: inherit;
+
+      /* Force Hardware Acceleration in WebKit */
+      @include translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+
+      @include transition(transform 0.2s, width 0.2s);
+    }
+
+    &::before {
+      @include transform-origin(right top);
+      @include translate(0%, -10px);
+      @include MQ(XS) {
+        @include translate(0%, -6px);
+      }
+
+    }
+
+    &::after {
+      @include transform-origin(right bottom);
+      @include translate(0%, 10px);
+      @include MQ(XS) {
+        @include translate(0%, 6px);
+      }
+
+    }
+
+  }
+
+  .no-touch &:hover {
+    /* rotate trigger on hover */
+    @include rotate(180deg);
+
+    span::after,
+    span::before {
+      /* animate arrow --> from hamburger to arrow */
+      width: 50%;
+    }
+  }
+}
+
+.cd-nav-trigger.cd-close-nav {
+  /* 'X' close icon */
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  /* set the right position value so that it overlaps the .cd-nav-trigger*/
+  right: 6.25%;
+  @include center(y);
+
+  text-indent: 100%;
+  white-space: nowrap;
+
+  @include transition(opacity .2s);
+
+  span {
+    background: transparent;
+    &::after,
+    &::before {
+      background-color: $black-color;
+      @include backface-visibility(hidden);
+    }
+
+    &::after {
+      @include rotate(-45deg);
+      @include transform-origin(50% 50%);
+    }
+
+
+    &::before {
+      @include rotate(45deg);
+      @include transform-origin(50% 50%);
+    }
+  }
+
+
+  .no-touch &:hover {
+    opacity: .8;
+  }
+
+  @include MQ(S) {
+    right: 7.14%;
+  }
+}
+
+
+/* --------------------------------
+
+xnavigation
+
+-------------------------------- */
+
+.cd-nav-container {
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  height: 100%;
+  background-color: $blue-color;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+
+  @include backface-visibility(hidden);
+
+  @include transition(transform $animation-duration 0s, box-shadow 0s $animation-duration); // see partials > _variables.scss
+
+  &.is-visible {
+    @include translate(0, 0);
+    -webkit-overflow-scrolling: touch;
+    @include transition(transform $animation-duration 0s, box-shadow 0s 0s);
+  }
+
+  header {
+    padding: 5px 10%;
+    height: 68px;
+    position: relative;
+  }
+
+  h3 {
+    font: {
+      size: 20px;
+      weight: bold;
+    }
+    text-transform: uppercase;
+    color: $blue-light-color;
+  }
+
+  @include MQ(XS) {
+    width: 220px;
+    left: 0px;
+    @include translate3d(0, 0, 0);
+    @include translate(-100%, 0%);
+  }
+
+  @include MQ(S) {
+    width: 220px;
+    left: 0px;
+    @include translate3d(0, 0, 0);
+    @include translate(-100%, 0%);
+  }
+
+  @include MQ(M) {
+    width: 260px;
+    right: 0;
+    @include translate3d(0, 0, 0);
+    @include translate(100%, 0%);
+  }
+  @include MQ(L) {
+    width: 260px;
+    right: 0;
+    @include translate3d(0, 0, 0);
+    @include translate(100%, 0%);
+  }
+}
+
+
+clearfix {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.cd-nav {
+  background-color: darken($blue-color, 5%);
+
+  li {
+    @include column(1.0);
+    height: 50px;
+
+    &:nth-of-type(2n) {
+      border-right-width: 0;
+    }
+  }
+
+  a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0px;
+    @include transition(background-color .2s);
+
+    &:hover {
+      background-color: $blue-dark-color;
+    }
+
+    span {
+      color: $white-color;
+      font-weight: 800;
+      font-size: 18px;
+    }
+  }
+
+  .no-touch & li a:hover,
+  li.cd-selected a {
+    span * {
+      /* on hover or if selected - change text and icon color*/
+      stroke: $blue-color;
+    }
+
+  }
+
+  .no-touch & li:first-of-type a:hover,
+  li.cd-selected a {
+    /* on hover or if selected - change background color*/
+    background-color: $blue-dark-color;
+  }
+
+  span {
+    position: absolute;
+  }
+
+  span {
+    left: 10%;
+
+    * {
+      @include transition(stroke .2s);
+    }
+  }
+
+  @include MQ(S) {
+
+    li {
+      /* 116px is the navigation header height and the menu items will be allocated in 3 rows */
+      height: 50px;
+    }
+
+  }
+
+  @include MQ(M) {
+
+    li {
+      @include column(1.0);
+      height: 50px;
+
+      &:nth-of-type(2n) {
+        border-right-width: 1px;
+      }
+
+      &:nth-of-type(3n) {
+        border-right-width: 0;
+      }
+    }
+
+  }
+}
+
+@keyframes cd-shock {
+  0% {
+    @include rotate(0);
+  }
+
+  30% {
+    @include rotate(10deg);
+  }
+
+  60% {
+    @include rotate(-10deg);
+  }
+
+  100% {
+    @include rotate(0);
+  }
+}
+
+/* --------------------------------
+
+xshadow layer
+
+-------------------------------- */
+
+.cd-overlay {
+  /* shadow layer visible when navigation is open */
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  background-color: rgba(#000, .35);
+  visibility: hidden;
+  opacity: 0;
+  @include backface-visibility(hidden);
+  @include transition(opacity $animation-duration 0s, visibility 0s $animation-duration);
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    @include transition(opacity $animation-duration 0s, visibility 0s 0s);
+  }
+}
+
+/* --------------------------------
+
+xcontent
+
+-------------------------------- */
+
+.scale-down {
+  @include MQ(XS) {
+    @include translate3d(220px, 0, 0);
+    transition: -webkit-transform .4s ease;
+    transition: transform .4s ease;
+    transition: transform .4s ease, -webkit-transform .4s ease;
+  }
+
+  @include MQ(S) {
+    @include translate3d(220px, 0, 0);
+  }
+
+  @include MQ(M) {
+    @include translate3d(-260px, 0px, 0px);
+  }
+
+  @include MQ(L) {
+    @include translate3d(-260px, 0px, 0px);
+  }
+
+}
+
+.st-menu-open .st-pusher::after {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  content: '';
+  /* -webkit-transition: opacity .5s; */
+  /* transition: opacity .5s; */
+}
+.st-pusher::after {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 0;
+  opacity: 0;
+  -webkit-transition: opacity .5s,width .1s .5s,height .1s .5s;
+  transition: opacity .5s,width .1s .5s,height .1s .5s;
+}
+
+.navbar-inverse {
+  -webkit-transition: transform 0.4s;
+  -o-transition: transform 0.4s;
+  transition: transform 0.4s;
+
+  @include MQ(XS) {
+    .navbar-brand{
+      position: absolute;
+      width: 100%;
+      img{
+        margin: 0 auto;
+      }
+    }
+  }
+
+  @include MQ(S) {
+    .navbar-brand{
+      position: absolute;
+      width: 100%;
+      img{
+        margin: 0 auto;
+      }
+    }
+  }
+}

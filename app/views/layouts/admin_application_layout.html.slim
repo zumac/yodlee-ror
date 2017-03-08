@@ -1,0 +1,27 @@
+doctype html
+html lang="en"
+  - @page_attrs = @page_attrs || {}
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"
+    meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'
+    title= content_for?(:title) ? yield(:title) : "SaveRD"
+    = csrf_meta_tags
+
+    link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css"
+    link href='http://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700,800,300,200,100' rel='stylesheet' type='text/css'
+    link href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'
+
+    = stylesheet_link_tag "admin/admin", :media => "all"
+
+    /![if lt IE 9]
+      | <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script
+      | <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script
+
+    = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+    = javascript_include_tag "admin/admin"
+
+  body.skin-blue
+    == render 'layouts/admin_header'
+    == render 'layouts/admin_sidebar'
+    = yield

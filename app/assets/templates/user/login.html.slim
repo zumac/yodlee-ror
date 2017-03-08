@@ -1,0 +1,23 @@
+.header data-ng-include="'layouts/header.html'"
+.container-fluid.content
+  .registration
+    form data-ng-submit="signin(form)"
+      .form-container
+        .form-group
+          h3.text-center Sign in
+        .form-group
+          input.form-control id="username" name="username" data-ng-model="user.email" type="email" placeholder="Email Address" autocomplete="off"
+        .form-group
+          input.form-control id="password" name="password" data-ng-model="user.password" type="password" placeholder="Password" autocomplete="off"
+          a href="/forgot-password" I have forgotten my password
+        .form-group.button-submit
+          input.btn.btn-primary type="submit" value="SIGN IN"
+        .form-group
+          h3.text-center Don't have an account
+        .form-group
+          a.btn.btn-default href="/sign-up" SIGN UP
+    hr
+    .saverd-advantage data-ng-include="'user/saverd-advantage.html'"
+div data-ng-include="'layouts/footer.html'"
+
+

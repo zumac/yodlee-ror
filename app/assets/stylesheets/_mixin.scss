@@ -1,0 +1,20 @@
+@import "bootstrap/variables";
+@mixin MQ($canvas) {
+  @if $canvas == XS {
+    @media (max-width: $screen-xs-max) {
+      @content;
+    }
+  } @else if $canvas == S {
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+      @content;
+    }
+  } @else if $canvas == M {
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+      @content;
+    }
+  } @else if $canvas == L {
+    @media (min-width: $screen-lg-min) {
+      @content;
+    }
+  }
+}

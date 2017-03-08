@@ -1,0 +1,51 @@
+@import "variable";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+@media (min-width: 768px){
+  .container-fluid {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+}
+
+.center-block{
+  float: none;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+@media (max-width: 768px){
+  .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+input[type='text'], input[type='password'], input[type='email']{
+  box-shadow: none !important;
+  padding: 0px;
+  border: 0px;
+  border-radius: 0px;
+  border-bottom: 1px solid $grey-dark-color;
+  outline: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 4px 5px 0;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: transparent;
+  opacity: 1;
+  cursor: not-allowed;
+}

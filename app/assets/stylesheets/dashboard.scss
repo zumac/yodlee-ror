@@ -1,0 +1,173 @@
+@import "variable";
+@import "mixin";
+
+$card-border-radius: 10px;
+
+.dashboard{
+  margin-top: 80px;
+  background-color: $grey-color;
+  .graph-container{
+    margin-top: 40px;
+    .graph{
+      @include MQ(XS) {
+        padding: 2px;
+      }
+      @include MQ(S) {
+        padding: 10px;
+      }
+      @include MQ(M) {
+        padding: 20px;
+      }
+      @include MQ(L) {
+        padding: 40px;
+      }
+      background-color: $green-color;
+    }
+
+  }
+  .balance {
+    margin: 20px 0px 0px 0px;
+    background-color: $violet-color;
+    border-radius: $card-border-radius;
+    padding: 15px;
+    color: $white-color;
+    h4 {
+      float: none;
+      margin: 0 auto;
+      display: block;
+      text-align: center;
+      font-weight: 400;
+    }
+  }
+  .credit {
+    .title{
+      background-color: $green-dark-color;
+    }
+  }
+  .debit {
+    .title{
+      background-color: $red-color;
+    }
+  }
+  .col-md-4 {
+    .card {
+      border-radius: $card-border-radius;
+      background-color: $white-color;
+      margin: 20px 0px;
+      .title {
+        min-height: 40px;
+        padding: 5px;
+        border-radius: $card-border-radius $card-border-radius 0px 0px;
+        h4 {
+          color: $white-color;
+          line-height: 20px;
+        }
+      }
+      .card-content{
+        min-height: 80px;
+        padding: 1% 5%;
+        h3{
+          color: $grey-dark-color;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+  h3 {
+      color: $grey-dark-color;
+      font-weight: 400;
+  }
+  .ng-table th {
+    text-align: left;
+  }
+
+  thead{
+    background-color: $grey-dark-color;
+    color: $white-color;
+    th:first-child{
+      border-radius: $card-border-radius 0px 0px 0px;
+    }
+    th:last-child{
+      border-radius: 0px $card-border-radius 0px 0px ;
+    }
+    .ng-table-filters{
+     display: none;
+    }
+    th.sortable.sort-desc, th.sortable.sort-asc {
+      background-color: inherit;
+      text-shadow: inherit;
+    }
+    th.sortable .sort-indicator:before {
+      border-top: 4px solid #f5f5f5;
+    }
+    th.sortable .sort-indicator:after, .ng-table th.sortable .sort-indicator:before {
+      border-color: #f5f5f5 transparent;
+    }
+  }
+  tbody{
+    tr{
+      background-color: $white-color;
+      td {
+        padding: 0px;
+        vertical-align: middle;
+        border-top: 1px dotted #ddd;
+        height: 35px;
+        word-break: break-all;
+      }
+      td:first-child {
+        width: 5%;
+        padding: 0px 0px 0px 5px;
+      }
+    }
+    tr:last-child{
+      td:first-child{
+        border-radius: 0px 0px 0px $card-border-radius ;
+      }
+      td:last-child{
+        border-radius: 0px 0px $card-border-radius 0px ;
+      }
+    }
+  }
+  .table-container {
+    background-color: $white-color;
+    margin-bottom: 20px;
+    img{
+      width: 40px;
+    }
+    @include MQ(XS) {
+      font-size: 10px;
+      img{
+        width: 30px;
+      }
+    }
+    .positive {
+      color: $green-dark-color;
+      font-weight: 800;
+    }
+    .negative {
+      color: $red-color;
+      font-weight: 800;
+    }
+    .pagination{
+      margin: 0 auto;
+      .active > a{
+        font-weight: 800;
+        color: #fff;
+        background-color: $grey-dark-color;
+        border-color: $grey-dark-color;
+        padding: 5px 12px;
+      }
+      li > a{
+        font-weight: 800;
+        background-color: $grey-color;
+        padding: 5px 12px;
+        color: $grey-dark-color;
+      }
+      li:first-child > a, li:last-child > a{
+        border-radius: 0px;
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+}

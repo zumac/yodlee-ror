@@ -1,0 +1,148 @@
+@import "variable";
+@import "mixin";
+
+.accounts {
+  margin-top: 80px;
+  background-color: $white-color;
+  padding: 5%;
+  h3, h4{
+    font-weight: 400;
+    a{
+      display: inline-block;
+      color: $black-color;
+    }
+    a.blue{
+      color: $green-dark-color;
+    }
+  }
+  h3.sub-text{
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  a, input[type='submit']{
+    display: block;
+    margin: 20px auto;
+  }
+  a.btn-240, input.btn-240{
+    width: 240px;
+    margin: 40px auto;
+  }
+  a.btn-150, input.btn-150{
+    width: 150px;
+    margin: 40px auto;
+  }
+  img{
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    float: none;
+  }
+  img.bank-img{
+
+    @include MQ(XS) {
+      width: 30px;
+    }
+
+    @include MQ(S) {
+      width: 75px;
+    }
+
+    @include MQ(M) {
+      width: 75px;
+    }
+
+    @include MQ(L) {
+      width: 75px;
+    }
+
+  }
+  table, form {
+    font-weight: 400;
+    display: block;
+    float: none;
+    margin: 0 auto;
+    @include MQ(XS) {
+      width: 95%;
+      font-size: 12px;
+    }
+
+    @include MQ(S) {
+      width: 70%;
+      font-size: 18px;
+    }
+
+    @include MQ(M) {
+      width: 60%;
+      font-size: 18px;
+    }
+
+    @include MQ(L) {
+      width: 50%;
+      font-size: 18px;
+    }
+  }
+  table{
+    a {
+      display: inline;
+      color: $black-color;
+    }
+    thead {
+      border-top: 1px solid;
+    }
+    thead > tr > th {
+      border-bottom: 1px solid #666666;
+      font-weight: 400;
+    }
+    thead > tr > th:nth-child(2) {
+      width: 50%;
+    }
+    thead > tr > th:last-child {
+      width: 50%;
+    }
+
+    tbody > tr > td:last-child{
+      word-break: break-word;
+    }
+
+  }
+  .wizard{
+    @include MQ(XS) {
+      width: 100%;
+      .steps-indicator li a{
+        font-size: 12px;
+      }
+    }
+
+    @include MQ(S) {
+      width: 70%;
+    }
+
+    @include MQ(M) {
+      width: 60%;
+    }
+
+    @include MQ(L) {
+      width: 50%;
+    }
+    margin: 0 auto;
+    .steps-indicator li a:before {
+      top: 50px;
+    }
+    .btn{
+      width: 240px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+  form {
+    label{
+      line-height: 2;
+      height: 34px;
+      font-weight: 400;
+    }
+    .form-group{
+      margin-bottom: 18px;
+    }
+  }
+}

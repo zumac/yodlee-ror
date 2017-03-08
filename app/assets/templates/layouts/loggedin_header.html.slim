@@ -1,0 +1,70 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+  .container-fluid
+    .navbar-header
+      a.navbar-brand href="/dashboard"
+        = image_tag('logo-green.png')
+    a.cd-nav-trigger.hidden-md.hidden-lg.left href="#"
+      span
+    a.cd-nav-trigger.hidden-xs.hidden-sm.right href="#"
+      span
+#cd-nav.cd-nav-container ng-controller="SidebarController"
+  header
+    h3 MENU
+  ul.cd-nav
+    li ng-class="{ 'cd-selected': isActive('/dashboard')}"
+      a href="/dashboard"
+        span Dashboard
+    li ng-class="{ 'cd-selected': isActive('/accounts/user')}"
+      a href="/accounts/user/settings"
+        span User Settings
+    li ng-class="{ 'cd-selected': isActive('/accounts/linked')}"
+      a href="/accounts/linked"
+        span Linked Accounts
+    li
+      a href="/log-out"
+        span Logout
+.cd-overlay
+
+
+javascript:
+  $(document).ready(function(){
+    //close the navigation
+    $('.cd-close-nav, .cd-overlay').on('click', function(event){
+      event.preventDefault();
+      toggleNav(false);
+    });
+    //open navigation clicking the menu icon
+    $('.navbar-inverse').on('click', '.cd-nav-trigger', function(event){
+      event.preventDefault();
+      if($('.cd-nav-trigger').hasClass('cd-close-nav')){
+        toggleNav(false);
+      } else{
+        toggleNav(true);
+      }
+    });
+
+    //select a new section
+    $('.cd-nav li').on('click', function(event){
+      var target = $(this),
+      //detect which section user has chosen
+        sectionTarget = target.data('menu');
+      if( !target.hasClass('cd-selected') ) {
+        //if user has selected a section different from the one alredy visible
+        //update the navigation -> assign the .cd-selected class to the selected item
+        //target.addClass('cd-selected').siblings('.cd-selected').removeClass('cd-selected');
+        toggleNav(false);
+      } else {
+        // otherwise close navigation
+        toggleNav(false);
+      }
+    });
+
+    function toggleNav(bool) {
+      $('.cd-nav-container, .cd-overlay').toggleClass('is-visible', bool);
+      $('nav').toggleClass('scale-down', bool);
+      $('.content').toggleClass('scale-down', bool);
+      $('footer').toggleClass('scale-down', bool);
+      $('.cd-nav-trigger').toggleClass('cd-close-nav', bool);
+      $('body > div').toggleClass('st-menu-open', bool);
+    }
+  });

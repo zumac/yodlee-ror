@@ -1,0 +1,104 @@
+.header.transparent data-ng-include="'layouts/landing_page_header.html'"
+.content.home-page
+  .landing-preview-section
+    .container-fluid
+      .row
+        .col-md-6.col-sm-6.col-xs-12
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              h1
+                | Never think about
+                br
+                | saving again
+              h3 It is time to take control back of your finances, register to get into our alpha test.
+          .row
+            .col-md-6.col-sm-8.hidden-xs
+              h4.inline style="display:inline;float:left" Watch the video
+              h4.inline style="display:inline;float:right" 0:42 Sec
+              = image_tag('video.png', :width => "100%")
+          .row
+            .col-md-12.col-sm-12.col-xs-12.hidden-md.hidden-lg.hidden-sm.btn-container
+              a.btn.btn-dark-green href='/sign-up'
+                i.fa.fa-play
+                span Watch the video
+        .col-md-6.col-sm-6.col-xs-12
+          = image_tag('2.png', :width => "500px", :class => 'img-responsive')
+      .row
+        div.bottom-arrow.animate.hidden-xs
+          = image_tag('arrow.png', :class => 'center-block img-responsive')
+  .how-it-works
+    .container-fluid
+      h2.text-center HOW IT WORKS
+      hr
+      .row
+        .col-md-8.col-md-offset-2
+          h3.text-center We monitor your cashflow to algorithmically find the best ways for you to manage your finances.
+        .col-md-12.img-container
+          = image_tag("computer.png", :class => 'img-responsive')
+      .row
+        .col-md-4
+          = image_tag('connect.png', :class => 'center-block icon')
+          h2.text-center Connect
+          p.text-center Sign up, connect your bank account and download our app
+        .col-md-4
+          = image_tag('track.png', :class => 'center-block icon')
+          h2.text-center Track
+          p.text-center Our algorithm track your cashflow to uncover small amounts of money that can be saved
+        .col-md-4
+          = image_tag('save.png', :class => 'center-block icon')
+          h2.text-center Save
+          p.text-center Every few days we move this money to your secured Saverd savings account
+      .row
+        .col-md-6.col-md-offset-3
+          h2.text-center Let us know and we will transfer your money back straight away for free
+      .row
+        .col-md-12.col-sm-12.col-xs-12.btn-container
+          a.btn.btn-success href='/sign-up' SIGN UP FOR FREE
+  .features
+    .container-fluid
+      h2.text-center SERIOUS SECURITY
+      hr
+      h3.text-center We take the security of your data and money very seriously. Everything is stored in the cloud under bank level security and military grade encryption
+      .row
+        .col-md-6
+          = image_tag('Bank.png', :class => 'center-block icon')
+          h2.text-center Bank level security
+          p.text-center We use the best SSL security protocols in the industry and banking standard processes in everything we do, with no personal information being stored on your device.
+        .col-md-6
+          = image_tag('Military.png', :class => 'center-block icon')
+          h2.text-center Military grade encryption
+          p.text-center We use 256-bit encryption to store data and when you access it, this is the same used as militaries around the world.
+      .row
+        .col-md-12.img-container
+          = image_tag("Img3.png", :class => 'img-responsive')
+      .row
+        .col-md-6
+          = image_tag('Access.png', :class => 'center-block icon')
+          h2.text-center Access your savings anytime
+          p.text-center Whenever you want your money back, lets us know and we’ll transfer it using faster payments so you will normally get it next working day.
+        .col-md-6
+          = image_tag('Protection.png', :class => 'center-block icon')
+          h2.text-center Your money is well protected
+          p.text-center We hold your money in a separate account with a range of major banking institutions, in accordance with FCA client money rules and insured under the FSCS scheme.
+      .row
+        .col-md-12.col-sm-12.col-xs-12.btn-container
+          a.btn.btn-success href='/sign-up' SIGN UP TODAY
+  .insights
+    .container-fluid
+      h2.text-center INSIGHTS
+      hr
+      .row.vertical-align
+        .col-md-7.col-sm-7.col-xs-12
+          .row
+            .col-md-12
+              h2.text-center Make better choices with your money
+          .row
+            .col-md-12.col-sm-12.col-xs-12.btn-container
+              a.btn.btn-default Read Articles
+        .col-md-5.col-sm-5.hidden-xs.img-container
+          = image_tag("Img4.png", :class => 'img-responsive')
+      .row.hidden-md.hidden-lg.hidden-sm.img-container
+        = image_tag("Img4.png", :class => 'img-responsive')
+
+
+div data-ng-include="'layouts/footer.html'"

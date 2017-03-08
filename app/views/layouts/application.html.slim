@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title Yodlee
+    link href='https://fonts.googleapis.com/css?family=Quicksand:400,700,300' rel='stylesheet' type='text/css'
+    meta name="viewport" content="width=device-width"
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    base href="/"
+  body ng-app="appModule"
+    = yield

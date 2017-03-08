@@ -1,0 +1,45 @@
+.st-pusher style="overflow-y:scroll"
+  .header data-ng-include="'layouts/loggedin_header.html'"
+  .content.accounts
+    h3.text-center
+      a href="/accounts/user/settings" Personal
+      a.blue &nbsp;| Accounts
+    h3.sub-text.text-center Link a new account
+    .wizard ng-controller="UserController"
+      wizard on-finish="finishedWizard()"
+        wz-step wz-title="1. Connect Account"
+          .sign-up-form
+            .form-group
+              h3.text-center Search your bank
+            .form-group
+              h4 Please select the bank where you make most of your credit or debit purchases.
+            .form-group
+              input.form-control name="search" placeholder="Search" ng-model="search" type="text" ng-change="bankSearch(search)"
+            .form-group
+              div.col-md-3.col-sm-3.col-lg-3 ng-repeat="model in banks track by model.id"
+                .bank-container
+                  .logo
+                    <img src=data:image/png;base64,{{model.img}}></img>
+                  .clearfix
+                  p
+                    input type="radio" name="selectedBank" ng-model="bank.id" ng-value="{{model.csi}}"
+                    | {{model.csdn}}
+              .clearfix
+            .clearfix
+            .form-group style="margin-top:30px"
+              input type="submit" class="btn btn-primary" value=("Next") ng-click="getBankLoginDetails(bank.id)"
+        wz-step wz-title="2. Login"
+          form class='bank-login-form'
+            div dynamic="html"
+            .clearfix
+            .form-group style="margin-top:30px"
+              input type="submit" class="btn btn-primary" value=("Submit") ng-click="bankLogin(bank)"
+        div ng-if="is_mfa_enabled == 'true'"
+          wz-step wz-title="3. MFA"
+            form class='bank-login-form' ng-submit="mfaLogin(bank)"
+              div dynamic="html_mfa"
+              .clearfix
+              .form-group style="margin-top:30px"
+                input type="submit" class="btn btn-primary" value=("Submit")
+        hr
+  div data-ng-include="'layouts/footer.html'"
