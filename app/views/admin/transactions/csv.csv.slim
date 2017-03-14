@@ -1,0 +1,16 @@
+- headers = ['Date',
+             'User',
+             'Bank',
+             'Description',
+             'Category',
+             'Amount' ]
+= CSV.generate_line headers
+- @transactions.each do |transaction|
+  - bank_id = @account.select{|m| m.item_account_id.include?(transaction.item_id)}.first.bank_id
+  = CSV.generate_line([transaction.post_date.strftime('%d %b %Y'),
+                       @user.select{|m| m.id == transaction.user_id}.first.full_name,
+                       @bank.select{|m| m.id == bank_id}.first.site_display_name,
+                       transaction.description,
+                       transaction.category_name,
+                       transaction.amount_formatted,
+]).html_safe

@@ -1,0 +1,35 @@
+.content-wrapper.member
+  section.content
+    .row
+      .col-xs-12
+        .box
+          .box-header
+            h3.box-title Yodlee Account Status
+          .box-body
+            table#example2.table.table-bordered.table-hover
+              thead
+                tr
+                  th User
+                  th Bank
+                  th Status Code
+                  th Message
+              tbody
+                - @accounts.each do | account |
+                  tr
+                    td = @user.select{|m| m.id == account.user_id}.first.full_name
+                    td = @bank.select{|m| m.id == account.bank_id}.first.site_display_name
+                    td = account.status_code
+                    td = Account::Error[account.status_code]
+
+
+  javascript:
+    $(function () {
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false
+      });
+    });

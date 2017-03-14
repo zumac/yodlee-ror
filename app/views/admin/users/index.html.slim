@@ -1,0 +1,38 @@
+.content-wrapper.member
+  section.content
+    .row
+      .col-xs-12
+        .box
+          .box-header
+            h3.box-title User Table
+          .box-body
+            table#example2.table.table-bordered.table-hover
+              thead
+                tr
+                  th Full Name
+                  th First Name
+                  th Last Name
+                  th Email
+                  th Phone Number
+                  th Accounts connected
+              tbody
+                - @users.each do | user |
+                  tr
+                    td = user.full_name
+                    td = user.first_name
+                    td = user.last_name
+                    td = user.email
+                    td = user.phone
+                    td = Account.where(:status_code => 0, :user_id => user.id).count
+
+  javascript:
+    $(function () {
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false
+      });
+    });

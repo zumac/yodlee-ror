@@ -1,0 +1,41 @@
+.content-wrapper.member
+  section.content
+    .row
+      .col-xs-12
+
+        .box
+          .box-header
+            h3.box-title Transactions Table
+            =link_to 'Download CSV', csv_admin_transactions_path(:format => :csv), :class => 'btn btn-primary pull-right'
+          .box-body
+            table#example2.table.table-bordered.table-hover
+              thead
+                tr
+                  th Date
+                  th User
+                  th Bank
+                  th Description
+                  th Category
+                  th Amount
+              tbody
+                - @transactions.each do | transaction |
+                  tr
+                    td = transaction.post_date.strftime('%d %b %Y')
+                    td = @user.select{|m| m.id == transaction.user_id}.first.full_name
+                    - bank_id = @account.select{|m| m.item_account_id.include?(transaction.item_id)}.first.bank_id
+                    td = @bank.select{|m| m.id == bank_id}.first.site_display_name
+                    td = transaction.description
+                    td = transaction.category_name
+                    td = transaction.amount_formatted
+
+  javascript:
+    $(function () {
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false
+      });
+    });
