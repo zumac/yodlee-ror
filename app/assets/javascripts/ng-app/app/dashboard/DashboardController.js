@@ -55,7 +55,7 @@
       });
 
     })
-    .controller('DashboardController', function ($scope, AuthService, NgTableParams, DashboardService) {
+    .controller('DashboardController', function ($scope, AuthService, NgTableParams, DashboardService, $log) {
 
       $scope.colours = ['#FFFFFF'];
       $scope.labels = ['Running Account Balance'];

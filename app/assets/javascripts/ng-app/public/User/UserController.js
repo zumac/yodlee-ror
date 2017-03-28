@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('UserModule', ['templates', 'Devise', 'mgo-angular-wizard', 'toastr'])
-    .controller('UserController', function ($scope, $q, $sce, $timeout, Auth, $location, WizardHandler, toastr, UserService) {
+    .controller('UserController', function ($scope, $q, $sce, $timeout, Auth, $location, WizardHandler, toastr, UserService, $log) {
       $scope.is_mfa_enabled = 'false';
       $scope.user = {};
       $scope.banks = {};

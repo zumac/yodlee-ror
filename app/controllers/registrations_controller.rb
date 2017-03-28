@@ -65,6 +65,7 @@ class RegistrationsController < Devise::RegistrationsController
                        else
                           resource.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
                        end
+
     yield resource if block_given?
     if resource_updated
       if is_flashing_format?
@@ -73,7 +74,10 @@ class RegistrationsController < Devise::RegistrationsController
         set_flash_message :notice, flash_key
       end
       sign_in resource_name, resource, bypass: true
-      respond_with resource, location: after_update_path_for(resource)
+      # respond_with resource, location: after_update_path_for(resource)
+      render json: {
+                 status: :true
+             }
     else
       clean_up_passwords resource
       render json: {
@@ -103,7 +107,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name, :phone)
+    devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name, :phone, :gender, :dob, :postal_code)
     devise_parameter_sanitizer.for(:account_update) do |u|
       u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :postal_code, :phone, :gender, :dob)
     end

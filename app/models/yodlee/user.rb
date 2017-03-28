@@ -24,6 +24,7 @@ module Yodlee
                            }
                        })
       @token = response.userContext.conversationCredentials.sessionToken
+    rescue
     end
 
     def login

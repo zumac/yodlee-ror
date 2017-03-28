@@ -3,12 +3,24 @@ class App::AccountsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    puts current_user.id
     @accounts = Account.where(:user_id => current_user.id)
     @banks = Bank.find(@accounts.map{|m| m.bank_id}.compact.uniq)
     render 'app/accounts/index.json'
   end
 
+  def create
+    bank = Bank.find(params[:bank_id])
+    account = Account.new(user_id: current_user.id, bank: bank)
+    # Expecting params[:credentials] to be a hash of the required Yodlee Bank Login Fields.
+    account.yodlee.create(params[:credentials])
+    account.save
+    if account
+      render json: { status: true }
+    else
+      render json: { status: false }
+    end
+  end
+  
   def refresh
     current_user.yodlee.login
     account = Account.where(:user_id => current_user.id, :yodlee_id => params[:id].to_i).first
@@ -27,14 +39,16 @@ class App::AccountsController < ApplicationController
 
   def delete
     begin
-      current_user.yodlee.login
       account = Account.where(:user_id => current_user.id, :yodlee_id => params[:id].to_i).first
-      account.yodlee.remove
-      if account.item_account_id.present?
-        transactions = Transaction.where(:user_id => current_user.id, :item_id.in => account.item_account_id)
-        if transactions.present?
-          transactions.each do | transaction |
-            transaction.delete
+      if account.status_code != 801
+        current_user.yodlee.login
+        account.yodlee.remove
+        if account.item_account_id.present?
+          transactions = Transaction.where(:user_id => current_user.id, :item_id.in => account.item_account_id)
+          if transactions.present?
+            transactions.each do | transaction |
+              transaction.delete
+            end
           end
         end
       end
@@ -54,6 +68,10 @@ class App::AccountsController < ApplicationController
              }
 
     end
+  end
+
+  def delete_all_unlinked
+    Account.where(:status_code => 801).destroy_all
   end
 
 end

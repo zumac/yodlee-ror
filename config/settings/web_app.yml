@@ -11,7 +11,7 @@ test:
   ses_host: email.eu-west-1.amazonaws.com
 
 staging:
-  domain: 'saverd.com'
+  domain: '52.16.18.38'
   access_key: AKIAJLC5ZMN534TGEHOA
   secret: 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
   ses_host: email.eu-west-1.amazonaws.com

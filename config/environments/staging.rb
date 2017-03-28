@@ -80,5 +80,17 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { :host => Yodlee::Settings::WebApp.domain }
 
-  config.action_mailer.delivery_method = :ses
+  # config.action_mailer.delivery_method = :ses
+
+  config.action_mailer.default_url_options = { :host => '52.16.18.38' }
+
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => '52.16.18.38',
+    :enable_starttls_auto => true
+  }
 end

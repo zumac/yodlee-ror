@@ -14,9 +14,7 @@ angular.module('appModule')
   })
   .controller('HomeController', function ($scope, Auth) {
     $scope.user;
-
     Auth.currentUser().then(function(user) {
-      console.log(user);
       if (Auth._currentUser == undefined)
       {
         $scope.user = false;

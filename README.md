@@ -1,7 +1,5 @@
 == README
 
-Yodlee is built on top of Ruby on Rails as back-end and Angular JS as front-end.
-
 1. First Create a user
 
 2. Second Login into yodlee account ( Yodlee Cred in user.rb)

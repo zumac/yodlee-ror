@@ -26,8 +26,8 @@ module Yodlee
     end
 
     def render_mfa_form
-      if mfa_fields['mfaFieldInfoType'] == 'SECURITY_QUESTION'
-        mfa_fields['questionAndAnswerValues'].map do | inner_question |
+      if @mfa_fields['mfaFieldInfoType'] == 'SECURITY_QUESTION'
+        @mfa_fields['questionAndAnswerValues'].map do | inner_question |
           Yodlee::Fields::MfaField.new(field: inner_question).render
         end
       end

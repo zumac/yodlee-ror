@@ -70,22 +70,22 @@ namespace :deploy do
     desc 'Precompile assets locally and upload to servers'
     task :precompile do
       on roles(:app) do
-        # run_locally do
-        #   with rails_env: fetch(:rails_env) do
-        #     execute 'rake assets:precompile'
-        #   end
-        # end
-        #
-        # within release_path do
-        #   with rails_env: fetch(:rails_env) do
-        #     run_locally {execute 'mv ./public/assets/.sprockets-manifest**.json ./public/assets/manifest.json'}
-        #     old_manifest_path = "#{shared_path}/public/assets/manifest.json"
-        #     execute :rm, old_manifest_path
-        #     upload!('./public/assets/', "#{shared_path}/public/", recursive: true)
-        #   end
-        # end
-        #
-        # run_locally { execute 'rm -rf public/assets' }
+        run_locally do
+          with rails_env: fetch(:rails_env) do
+            execute 'bundle exec rake assets:precompile'
+          end
+        end
+
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            run_locally {execute 'mv ./public/assets/.sprockets-manifest**.json ./public/assets/manifest.json'}
+            old_manifest_path = "#{shared_path}/public/assets/manifest.json"
+            execute :rm, old_manifest_path
+            upload!('./public/assets/', "#{shared_path}/public/", recursive: true)
+          end
+        end
+
+        run_locally { execute 'rm -rf public/assets' }
       end
     end
 

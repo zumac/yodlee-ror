@@ -7,6 +7,7 @@ json.bank do
 end
 json.transactions do
   json.array! @transactions do | transaction |
+    json.id transaction.id
     json.account_id transaction.item_id.to_s
     json.post_date transaction.post_date
     json.category_name transaction.category_name
@@ -17,5 +18,6 @@ json.transactions do
     else
       json.amount '%.2f' % (-1 * transaction.amount)
     end
+    json.user_id transaction.user_id.to_s
   end
 end

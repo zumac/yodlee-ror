@@ -5,17 +5,34 @@ class App::BanksController < ApplicationController
   def index
     if params[:query].present?
       if Rails.env == 'development'
-        banks = Bank.and({:content_service_display_name => /^#{params[:query]}/i}).limit(12)
+        @banks = Bank.and({:content_service_display_name => /^#{params[:query]}/i}).limit(12)
       else
-        banks = Bank.and({:content_service_display_name => /^#{params[:query]}/i},{ :content_service_display_name => /\(UK\)/i}).limit(12)
+        @banks = Bank.and({:content_service_display_name => /^#{params[:query]}/i},{ :content_service_display_name => /\(UK\)/i}).limit(12)
+      end
+    elsif params[:all].present?
+      @banks = Bank.where(:img.ne => '')
+    else
+      @banks = Bank.where(:img.ne => '', :content_service_display_name => /\(UK\)/i).limit(12)
+    end
+    @popular_banks = Bank.popular_banks_keywords
+    render 'app/banks/index.json'
+    # render json: {
+    #            status: :true,
+    #            banks: banks
+    #        }
+  end
+
+  def popular
+    if params[:query].present?
+      if Rails.env == 'development'
+        @banks = Bank.popular_banks.and({:content_service_display_name => /^#{params[:query]}/i})
+      else
+        @banks = Bank.popular_banks.and({:content_service_display_name => /^#{params[:query]}/i},{ :content_service_display_name => /\(UK\)/i})
       end
     else
-      banks = Bank.where(:img.ne => '', :content_service_display_name => /\(UK\)/i).limit(12)
+      @banks = Bank.popular_banks.and(:content_service_display_name => /\(UK\)/i)
     end
-    render json: {
-               status: :true,
-               banks: banks
-           }
+    render 'app/banks/popular.json'
   end
 
   def login_requirement
@@ -60,17 +77,30 @@ class App::BanksController < ApplicationController
     if account.yodlee.create(params[:bank])
       if bank.mfa != 'none'
         response = account.mfa.get_mfa_response_form
-        form = Yodlee::Form.new({ mfa_fields: response['fieldInfo'] }).render_mfa_form
-        render json: {
-                 status: :true,
-                 result: {
-                     mfa: :true,
-                     html: form,
-                     item_id: account.yodlee_id,
-                     response: response
-                 }
+        if params[:fields].present?
+          render json: {
+                   status: :true,
+                   result: {
+                       mfa: :true,
+                       mfa_fields: response['fieldInfo'],
+                       item_id: account.yodlee_id,
+                       response: response
+                   }
 
-               }
+                 }
+        else
+          form = Yodlee::Form.new({ mfa_fields: response['fieldInfo'] }).render_mfa_form
+          render json: {
+                   status: :true,
+                   result: {
+                       mfa: :true,
+                       html: form,
+                       item_id: account.yodlee_id,
+                       response: response
+                   }
+
+                 }
+        end
       else
         account.yodlee.ping
         Rails.cache.delete "#{current_user.id}-transactions"

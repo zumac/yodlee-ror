@@ -73,10 +73,6 @@ module Yodlee
                                :itemId => item_id.to_s,
                            }
                        })
-
-      if response
-        puts response
-      end
     end
 
     def refresh
@@ -162,56 +158,64 @@ module Yodlee
           else
             account.available_balance.merge!({ inner_account.itemAccountId => -1 * inner_account.runningBalance.amount })
           end
+          account.acc_type.merge!({ inner_account.itemAccountId => inner_account.acctType })
         end
         account.save
       end
     end
 
-    def last_available_transaction
-      last_transaction = Transaction.where(account_id: account.id).sort({post_date: 1}).last
+    def last_available_transaction(account_id)
+      last_transaction = Transaction.where(item_id: account_id).sort({post_date: 1}).last
       last_transaction.nil? ? 5.years.ago.strftime('%m-%d-%Y') : last_transaction.post_date.strftime('%m-%d-%Y')
     end
 
     def get_transaction_data
-      return_data = query({
-                :endpoint => '/jsonsdk/TransactionSearchService/executeUserSearchRequest',
-                :method => :POST,
-                :params => {
-                    :cobSessionToken => cobrand_token,
-                    :userSessionToken => token,
-                    :'transactionSearchRequest.containerType' => 'All',
-                    :'transactionSearchRequest.higherFetchLimit' => 500,
-                    :'transactionSearchRequest.lowerFetchLimit' => 1,
-                    :'transactionSearchRequest.resultRange.endNumber' => 500,
-                    :'transactionSearchRequest.resultRange.startNumber' => 1,
-                    :'transactionSearchRequest.searchClients.clientId' => 1,
-                    :'transactionSearchRequest.searchClients.clientName' => 'DataSearchService',
-                    :'transactionSearchRequest.ignoreUserInput' => true,
-                    :'transactionSearchRequest.searchFilter.postDateRange.fromDate' => last_available_transaction,
-                    # :'transactionSearchRequest.searchFilter.postDateRange.toDate' => Time.now.strftime('%m-%d-%Y'),
-                    :'transactionSearchRequest.searchFilter.transactionSplitType' => 'ALL_TRANSACTION'
-                }
-            })
-      save_fetched_transaction(return_data)
+      account.item_account_id.each do |account_id|
+        return_data = query({
+                                :endpoint => '/jsonsdk/TransactionSearchService/executeUserSearchRequest',
+                                :method => :POST,
+                                :params => {
+                                    :cobSessionToken => cobrand_token,
+                                    :userSessionToken => token,
+                                    :'transactionSearchRequest.containerType' => 'All',
+                                    :'transactionSearchRequest.higherFetchLimit' => 500,
+                                    :'transactionSearchRequest.lowerFetchLimit' => 1,
+                                    :'transactionSearchRequest.resultRange.endNumber' => 500,
+                                    :'transactionSearchRequest.resultRange.startNumber' => 1,
+                                    :'transactionSearchRequest.searchClients.clientId' => 1,
+                                    :'transactionSearchRequest.searchClients.clientName' => 'DataSearchService',
+                                    :'transactionSearchRequest.ignoreUserInput' => true,
+                                    :'transactionSearchRequest.searchFilter.postDateRange.fromDate' => last_available_transaction(account_id),
+                                    # :'transactionSearchRequest.searchFilter.postDateRange.toDate' => Time.now.strftime('%m-%d-%Y'),
+                                    :'transactionSearchRequest.searchFilter.itemAccountId.identifier' => account_id,
+                                    :'transactionSearchRequest.searchFilter.transactionSplitType' => 'ALL_TRANSACTION'
+                                }
+                            })
+        Rails.logger.info "FETCHED #{return_data.count} NEW TRANSACTION ENTRIES"
+        save_fetched_transaction(return_data)
+      end
     end
 
     def save_fetched_transaction(transactions)
-      transactions["searchResult"]["transactions"].each do | transaction_obj |
-        transaction = Transaction.where(id: transaction_obj['viewKey']['transactionId']).first_or_create
-        transaction.update_attributes!(
-            account_name: transaction_obj['account']['accountName'],
-            account_number: transaction_obj['account']['accountNumber'],
-            amount: transaction_obj['amount']['amount'],
-            balance: transaction_obj['account']['accountBalance']['amount'],
-            currency_code: transaction_obj['amount']['currencyCode'],
-            transaction_type: transaction_obj['transactionType'],
-            category_name: transaction_obj['category']['categoryName'],
-            description: transaction_obj['description']['description'],
-            post_date: transaction_obj['postDate'],
-            item_id: transaction_obj['account']['itemAccountId'],
-            dump: transaction_obj,
-            user_id: user.id
-        )
+      if transactions["searchResult"].present?
+        transactions["searchResult"]["transactions"].each do | transaction_obj |
+          transaction = Transaction.where(id: transaction_obj['viewKey']['transactionId']).first_or_create
+          transaction.update_attributes!(
+              account_name: transaction_obj['account']['accountName'],
+              account_number: transaction_obj['account']['accountNumber'],
+              amount: transaction_obj['amount']['amount'],
+              balance: transaction_obj['account']['accountBalance']['amount'],
+              currency_code: transaction_obj['amount']['currencyCode'],
+              transaction_type: transaction_obj['transactionType'],
+              category_name: transaction_obj['category']['categoryName'],
+              original_category_name: transaction_obj['category']['categoryName'],
+              description: transaction_obj['description']['description'],
+              post_date: transaction_obj['postDate'],
+              item_id: transaction_obj['account']['itemAccountId'],
+              dump: transaction_obj,
+              user_id: user.id
+          )
+        end
       end
 
     end

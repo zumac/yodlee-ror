@@ -5,8 +5,9 @@ class Account
   field :yi,  as: :yodlee_id,               type: Integer
   field :sc,  as: :status_code,             type: Integer, :default => 801
   field :lr,  as: :last_refresh,            type: Time
-  field :ia,  as: :item_account_id,         type: Array
+  field :ia,  as: :item_account_id,         type: Array, default: []
   field :ab,  as: :available_balance,       type: Hash, :default => {}
+  field :at,  as: :acc_type,                type: Hash, :default => {}
 
   belongs_to :user
   belongs_to :bank

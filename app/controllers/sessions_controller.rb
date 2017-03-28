@@ -1,7 +1,6 @@
 class SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
-  # protect_from_forgery
   def create
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_flashing_format?

@@ -50,9 +50,9 @@ module Yodlee
                                :cobrandPassword => Yodlee::Settings::YodleeAuth.password
                            }
                        })
-
       self.current_session_started = Time.zone.now
       self.current_session_token = response.cobrandConversationCredentials.sessionToken
+    rescue
     end
 
     def fresh_token?

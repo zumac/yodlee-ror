@@ -23,5 +23,24 @@ class Bank
       'IMAGE' => :MFAImageResponse,
       'SECURITY_QUESTION' => :MFAQuesAnsResponse
   }
+  def self.popular_banks_keywords
+    [
+      'American Express',
+      'Barclaycard',
+      'Barclays',
+      'First Direct', #
+      'Halifax',
+      'HSBC',
+      'Lloyds',
+      'Nationwide',
+      'Natwest', #
+      'Royal Bank of Scotland', #
+      'Santander'
+    ]
+  end
 
+  def self.popular_banks
+    keywords = self.popular_banks_keywords.join('|')
+    Bank.and({csdn: /#{keywords}/}).order_by(csdn: 'asc')
+  end
 end

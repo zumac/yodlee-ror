@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         get 'login_requirement'
         post  'login'
         post  'login_mfa'
+        get 'popular'
       end
     end
 
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
         post 'refresh'
         post 'refresh_all'
         post 'delete'
+        post 'delete_all_unlinked'
       end
     end
 
@@ -39,6 +41,8 @@ Rails.application.routes.draw do
         get 'dashboard'
         get 'balance'
         get 'query'
+        get 'categories'
+        post 'change_category'
       end
     end
 
